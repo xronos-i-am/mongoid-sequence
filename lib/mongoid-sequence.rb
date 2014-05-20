@@ -1,6 +1,5 @@
 require "mongoid-sequence/version"
 require "active_support/concern"
-require "pry"
 
 module Mongoid
   module Sequence
