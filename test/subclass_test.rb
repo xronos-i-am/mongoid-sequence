@@ -29,7 +29,7 @@ class SubclassTest < BaseTest
       SubclassSequenceModel.create
     end
 
-    assert_equal FirstSequencedModel.only(:auto_increment).uniq.size, n * 2
+    assert_equal FirstSequencedModel.all.uniq.size, n * 2
   end
 
   def test_mixed_sequence_consistency
