@@ -57,6 +57,9 @@ gem "mongoid-sequence"
 
 ## Changelog
 
+# 0.4.1
+* `dup` now reset the sequence fields, allowing a new value to be created
+
 # 0.4
 * Calling the `set_sequence` creation callback only if the sequence has not already been generated.
 This permits to `set_sequence` a new record before persisting it.

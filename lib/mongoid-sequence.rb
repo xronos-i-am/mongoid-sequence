@@ -67,5 +67,13 @@ module Mongoid
     def sequence_already_set?
       persisted? || self.class.sequence_already_set_for_class?(self.class, self)
     end
+    
+    def dup
+      copy = super
+      self.class.sequence_fields.each do |field|
+        copy[field] = nil
+      end if self.class.sequence_fields
+      copy
+    end
   end
 end
