@@ -34,28 +34,11 @@ class Sequenced
 	include Mongoid::Document
 	include Mongoid::Sequence
 
-  field :my_sequence, :type => Integer
-  belongs_to :organization
+  	field :my_sequence, :type => Integer
+  	belongs_to :organization
 
 	sequence :my_sequence, :organization_id
 end
-```
-
-It's also possible to make the `id` field behave like this:
-
-```ruby
-class Sequenced
-	include Mongoid::Document
-	include Mongoid::Sequence
-	
-	sequence :_id
-end
-
-s1 = Sequenced.create
-s1.id #=> 1
-
-s2 = Sequenced.create
-s2.id #=> 2 # and so on
 ```
 
 ## Consistency
@@ -71,5 +54,12 @@ gem "mongoid-sequence"
 ```
 
 <hr/>
+
+## Changelog
+
+# 0.4
+* Calling the `set_sequence` creation callback only if the sequence has not already been generated.
+This permits to `set_sequence` a new record before persisting it.
+* Removed the sequence on `id` as it was buggy on mongoid 4
 
 Copyright © 2010 Gonçalo Silva, released under the MIT license
