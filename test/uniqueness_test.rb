@@ -8,17 +8,7 @@ class UniquenessTest < BaseTest
       FirstSequencedModel.create
     end
 
-    assert_equal FirstSequencedModel.only(:auto_increment).uniq.size, n
-  end
-
-  def test_id_sequence_uniqueness
-    n = 200
-
-    n.times do
-      IdSequencedModel.create
-    end
-
-    assert_equal IdSequencedModel.only(:id).uniq.size, n
+    assert_equal FirstSequencedModel.all.uniq.size, n
   end
 
   def test_double_sequence_uniqueness
@@ -29,7 +19,7 @@ class UniquenessTest < BaseTest
       SecondSequencedModel.create
     end
 
-    assert_equal FirstSequencedModel.only(:auto_increment).uniq.size, n
-    assert_equal SecondSequencedModel.only(:auto_increment).uniq.size, n
+    assert_equal FirstSequencedModel.all.uniq.size, n
+    assert_equal SecondSequencedModel.all.uniq.size, n
   end
 end
