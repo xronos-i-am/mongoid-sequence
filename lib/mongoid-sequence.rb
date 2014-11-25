@@ -6,7 +6,7 @@ module Mongoid
     extend ActiveSupport::Concern
 
     included do
-      set_callback :create, :before, :set_sequence, :unless => :persisted?
+      set_callback :create, :before, :set_sequence, unless: :sequence_already_set?
     end
 
     module ClassMethods
@@ -51,10 +51,21 @@ module Mongoid
           object[field] = next_sequence['seq']
         end if klass.sequence_fields
       end
+
+      def sequence_already_set_for_class?(klass, object)
+        klass.sequence_fields.each do |field|
+          return false if object[field].nil?
+        end if klass.sequence_fields
+        true
+      end
     end
 
     def set_sequence
       self.class.set_sequence_for_class(self.class, self)
+    end
+
+    def sequence_already_set?
+      persisted? || self.class.sequence_already_set_for_class?(self.class, self)
     end
   end
 end
